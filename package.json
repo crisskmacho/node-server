@@ -1,0 +1,23 @@
+{
+  "name": "listadetareasnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gestion-tareas.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crisskmacho/node-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crisskmacho/node-server/issues"
+  },
+  "homepage": "https://github.com/crisskmacho/node-server#readme",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
