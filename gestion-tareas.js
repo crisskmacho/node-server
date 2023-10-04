@@ -2,6 +2,19 @@ const { reject } = require('lodash'); //bibliotecas
 const { resolve } = require('path');
 const readline = require('readline');
 
+const express = require('express');
+const app = express();
+const port = 3000;
+
+//Ruta para obtener la lista de tareas en formato JSON
+app.get('/tasks', (req, res) => {
+  res.json(tasks);
+});
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+
 const rl = readline.createInterface({  //se usa para interactuar con el usuario y leer las respuestas del usuario (entrada y salida)
   input: process.stdin,
   output: process.stdout
@@ -78,7 +91,7 @@ function askForAction() {
   return new Promise((resolve, reject) => {
     rl.question('¿Qué acción deseas realizar? (add/delete/complete/list/exit): ', async action => { //readline "rl" Permite al usuario ingresar comandos y recibir respuestas del programa.
       if (action === 'add') {
-        const indicador = await askQuestion('Indicador de la tarea: ');
+        const indicador = await askQuestion('Indicador de la tarea para agregar: ');
         const description = await askQuestion('Descripción de la tarea: ');
         try {
           await addTask(indicador, description);  //pausa la ejecución de la función hasta que la promesa se complete
