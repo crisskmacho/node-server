@@ -6,10 +6,20 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+//constantes para los routers
+const listViewRouter = require('./list-view-router');
+
+
 //Ruta para obtener la lista de tareas en formato JSON
 app.get('/tasks', (req, res) => {
   res.json(tasks);
 });
+
+
+//Rutas para los Routers
+app.use('/list-view', listViewRouter);
+
+
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
@@ -20,7 +30,7 @@ const rl = readline.createInterface({  //se usa para interactuar con el usuario 
   output: process.stdout
 });
 
-const tasks = [];
+const tasks = [{"indicator":"1","description":"asasa","completed":false}];
 
 // Función para agregar una tarea con una promesa
 function addTask(indicator, description) {
@@ -135,3 +145,5 @@ function askQuestion(question) {
 }
 
 main();
+
+module.exports = { tasks };
