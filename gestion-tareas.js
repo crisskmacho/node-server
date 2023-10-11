@@ -8,6 +8,7 @@ const port = 3000;
 
 //constantes para los routers
 const listViewRouter = require('./list-view-router');
+const listEditRouter = require('./list-edit-router');
 
 
 //Ruta para obtener la lista de tareas en formato JSON
@@ -16,8 +17,15 @@ app.get('/tasks', (req, res) => {
 });
 
 
+//ruta para llamar el post con body
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
 //Rutas para los Routers
 app.use('/list-view', listViewRouter);
+app.use('/list-edit', listEditRouter);
 
 
 
@@ -30,7 +38,7 @@ const rl = readline.createInterface({  //se usa para interactuar con el usuario 
   output: process.stdout
 });
 
-const tasks = [{"indicator":"1","description":"asasa","completed":false}];
+const tasks = [];
 
 // Función para agregar una tarea con una promesa
 function addTask(indicator, description) {
