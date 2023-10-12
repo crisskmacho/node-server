@@ -68,6 +68,22 @@ function deleteTask(indicator) {
   });
 }
 
+function updateTask(indicator, newDrescription){
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const task = tasks.find(task => task.indicator === indicator);
+      if (task) {
+        task.description = newDrescription;
+        console.log(`Tarea ${indicator} actualizada con nueva descripcion: ${newDrescription}`);
+        resolve();     
+      }else{
+        console.log(`No se encontro una tarea con el indicador: ${indicator}`);
+        reject();
+      }
+    }, 1000);
+  });
+}
+
 // Función para marcar una tarea como completada con una promesa
 function completeTask(indicator) {
   return new Promise((resolve, reject) => {
@@ -107,7 +123,7 @@ async function main(){  // declara la función asincrónica, la función contren
 
 function askForAction() {
   return new Promise((resolve, reject) => {
-    rl.question('¿Qué acción deseas realizar? (add/delete/complete/list/exit): ', async action => { //readline "rl" Permite al usuario ingresar comandos y recibir respuestas del programa.
+    rl.question('¿Qué acción deseas realizar? (add/delete/update/complete/list/exit): ', async action => { //readline "rl" Permite al usuario ingresar comandos y recibir respuestas del programa.
       if (action === 'add') {
         const indicador = await askQuestion('Indicador de la tarea para agregar: ');
         const description = await askQuestion('Descripción de la tarea: ');
@@ -123,7 +139,15 @@ function askForAction() {
         } catch (error){
           console.log('No se pudo eliminar la tarea.');
         }
-      } else if (action === 'complete') {
+      }else if(action === 'update') {
+        const indicador = await askQuestion('Indicador de la tarea a actualizar: ');
+        const newDrescription = await askQuestion('Nueva descripcion: ')
+        try {
+          await updateTask(indicador, newDrescription);
+        } catch (error) {
+          console.log('No se pudo actualizar la tarea.');
+        }
+      }else if (action === 'complete') {
         const indicador = await askQuestion('Indicador de la tarea a marcar como completada: ');
         try {
           await completeTask(indicador);

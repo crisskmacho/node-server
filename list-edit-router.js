@@ -15,5 +15,16 @@ listEditRouter.post('/create', (req, res) => {
     }
 });
 
+listEditRouter.delete('/delete/:indicator', (req, res) => {
+    const { tasks } = require('./gestion-tareas');
+    const { indicator } = req.params;
+    const taskIndex = tasks.findIndex(task => task.indicator === indicator);
+    if (taskIndex !== -1){
+        tasks.splice(taskIndex, 1);
+        res.status(200).json({ message: `Tarea con el indicador ${indicator} eliminada.`})
+    }else{
+        res.status(400).json({ error: `No se encontro una tarea con el indicador "${indicator}"`});
+    }
+});
 
 module.exports = listEditRouter;
