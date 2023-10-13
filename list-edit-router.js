@@ -27,4 +27,18 @@ listEditRouter.delete('/delete/:indicator', (req, res) => {
     }
 });
 
+listEditRouter.put('/update/:indicator', (req, res) => {
+    const { tasks } = require('./gestion-tareas');
+    const { indicator } = req.params;
+    const { newDescription } = req.body;
+
+    const task = tasks.find(task => task.indicator === indicator);
+
+    if (task){
+        task.description = newDescription;
+        res.status(200).json({ message: `Tarea con el indicador ${indicator} actualizada.`});
+    }else{
+        res.status(400).json({ error: `No se encontro una tarea con el indicador: ${indicator}`})
+    }
+});
 module.exports = listEditRouter;
