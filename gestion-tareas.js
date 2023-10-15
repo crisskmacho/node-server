@@ -10,6 +10,18 @@ const port = 3000;
 const listViewRouter = require('./list-view-router');
 const listEditRouter = require('./list-edit-router');
 
+// Middleware de aplicacion para validar metodos http validos
+const validateHTTPMethods = (req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'POST' && req.method !== 'PUT' && req.method !== 'DELETE'){
+    res.status(405).send('Metodo HTTP no permitido');
+  }else{
+    next();
+  }
+};
+
+
+app.use(validateHTTPMethods)
+
 
 //Ruta para obtener la lista de tareas en formato JSON
 app.get('/tasks', (req, res) => {
