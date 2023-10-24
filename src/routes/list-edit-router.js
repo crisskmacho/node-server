@@ -51,7 +51,7 @@ const putInvalidData = (req, res, next) => {
 
 
 listEditRouter.post('/create', postEmptyBody, postInvalidData, (req, res) => {
-    const { tasks } = require('./gestion-tareas');
+    const { tasks } = require('../gestion-tareas');
     const {indicator, description } = req.body;
 
     //Verifica que no se puedan crear tareas con el mismo indicador
@@ -67,7 +67,7 @@ listEditRouter.post('/create', postEmptyBody, postInvalidData, (req, res) => {
 });
 
 listEditRouter.delete('/delete/:indicator', (req, res) => {
-    const { tasks } = require('./gestion-tareas');
+    const { tasks } = require('../gestion-tareas');
     const { indicator } = req.params;
     const taskIndex = tasks.findIndex(task => task.indicator === indicator);
     if (taskIndex !== -1){
@@ -79,7 +79,7 @@ listEditRouter.delete('/delete/:indicator', (req, res) => {
 });
 
 listEditRouter.put('/update/:indicator', putEmptyBody, putInvalidData, (req, res) => {
-    const { tasks } = require('./gestion-tareas');
+    const { tasks } = require('../gestion-tareas');
     const { indicator } = req.params;
     const { newDescription } = req.body;
 
