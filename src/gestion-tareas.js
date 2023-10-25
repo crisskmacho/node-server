@@ -1,7 +1,3 @@
-const { reject } = require('lodash'); //bibliotecas
-const { resolve } = require('path');
-const readline = require('readline');
-
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -112,10 +108,6 @@ app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
 
-const rl = readline.createInterface({  //se usa para interactuar con el usuario y leer las respuestas del usuario (entrada y salida)
-  input: process.stdin,
-  output: process.stdout
-});
 
 const tasks = [];
 
