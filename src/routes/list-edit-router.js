@@ -50,6 +50,29 @@ const putInvalidData = (req, res, next) => {
 //listEditRouter.use(validateTask);
 
 
+//Listar todas las tareas
+listEditRouter.get('/tasks', (req, res) => {
+    const { tasks } = require('../gestion-tareas');
+    res.json(tasks);
+  });
+
+
+//Listar una sola tarea
+listEditRouter.get('/tasks/:indicator', (req, res) => {
+    const { tasks } = require('../gestion-tareas');
+    const { indicator } = req.params;
+
+    // Busca la tarea con el indicador proporcionado
+    const task = tasks.find(task => task.indicator === indicator);
+
+    if (task) {
+        res.status(200).json(task);
+    } else {
+        res.status(404).json({ error: `No se encontró una tarea con el indicador "${indicator}"` });
+    }
+});
+
+
 listEditRouter.post('/create', postEmptyBody, postInvalidData, (req, res) => {
     const { tasks } = require('../gestion-tareas');
     const {indicator, description } = req.body;
